@@ -1,11 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Temperature Converter</title>
 </head>
 <body>
-    
+
+<div id="app"></div>
+
+<script>
+const app = document.getElementById("app");
+
+app.innerHTML = `
+    <div class="container">
+        <h1>🌡 Temperature Converter</h1>
+        
+        <input type="number" id="temp" placeholder="Enter temperature">
+        
+        <select id="type">
+            <option value="CtoF">Celsius → Fahrenheit</option>
+            <option value="FtoC">Fahrenheit → Celsius</option>
+            <option value="CtoK">Celsius → Kelvin</option>
+            <option value="KtoC">Kelvin → Celsius</option>
+            <option value="FtoK">Fahrenheit → Kelvin</option>
+            <option value="KtoF">Kelvin → Fahrenheit</option>
+        </select>
+
+        <button onclick="convertTemp()">Convert</button>
+
+        <p id="result"></p>
+    </div>
+`;
+
+const style = document.createElement("style");
+style.innerHTML = `
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+    }
+
+    .container {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        width: 320px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    input, select, button {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background: #0072ff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #00c6ff;
+    }
+
+    #result {
+        font-size: 18px;
+        font-weight: bold;
+    }
+`;
+document.head.appendChild(style);
+
+function convertTemp() {
+    let temp = parseFloat(document.getElementById("temp").value);
+    let type = document.getElementById("type").value;
+
+    if (isNaN(temp)) {
+        document.getElementById("result").innerText = "⚠ Enter valid number";
+        return;
+    }
+
+    let result;
+
+    switch(type) {
+        case "CtoF":
+            result = (temp * 9/5) + 32;
+            document.getElementById("result").innerText = result.toFixed(2) + " °F";
+            break;
+
+        case "FtoC":
+            result = (temp - 32) * 5/9;
+            document.getElementById("result").innerText = result.toFixed(2) + " °C";
+            break;
+
+        case "CtoK":
+            result = temp + 273.15;
+            document.getElementById("result").innerText = result.toFixed(2) + " K";
+            break;
+
+        case "KtoC":
+            result = temp - 273.15;
+            document.getElementById("result").innerText = result.toFixed(2) + " °C";
+            break;
+
+        case "FtoK":
+            result = (temp - 32) * 5/9 + 273.15;
+            document.getElementById("result").innerText = result.toFixed(2) + " K";
+            break;
+
+        case "KtoF":
+            result = (temp - 273.15) * 9/5 + 32;
+            document.getElementById("result").innerText = result.toFixed(2) + " °F";
+            break;
+    }
+}
+</script>
+
 </body>
 </html>
