@@ -10,74 +10,61 @@
 <script>
 const app = document.getElementById("app");
 
-app.innerHTML = `
-    <div class="container">
-        <h1>🌡 Temperature Converter</h1>
-        
-        <input type="number" id="temp" placeholder="Enter temperature">
-        
-        <select id="type">
-            <option value="CtoF">Celsius → Fahrenheit</option>
-            <option value="FtoC">Fahrenheit → Celsius</option>
-            <option value="CtoK">Celsius → Kelvin</option>
-            <option value="KtoC">Kelvin → Celsius</option>
-            <option value="FtoK">Fahrenheit → Kelvin</option>
-            <option value="KtoF">Kelvin → Fahrenheit</option>
-        </select>
+// 🔹 Registration Page
+function showLogin() {
+    app.innerHTML = `
+        <div class="container">
+            <h1>🔐 Register</h1>
+            
+            <input type="text" id="name" placeholder="Enter your name">
+            <input type="email" id="email" placeholder="Enter your email">
 
-        <button onclick="convertTemp()">Convert</button>
+            <button onclick="startApp()">Enter</button>
 
-        <p id="result"></p>
-    </div>
-`;
+            <p id="error"></p>
+        </div>
+    `;
+}
 
-const style = document.createElement("style");
-style.innerHTML = `
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial;
-        background: linear-gradient(135deg, #00c6ff, #0072ff);
+// 🔹 Converter Page
+function showConverter(name) {
+    app.innerHTML = `
+        <div class="container">
+            <h2>Welcome, ${name} 👋</h2>
+            <h1>🌡 Temperature Converter</h1>
+            
+            <input type="number" id="temp" placeholder="Enter temperature">
+            
+            <select id="type">
+                <option value="CtoF">Celsius → Fahrenheit</option>
+                <option value="FtoC">Fahrenheit → Celsius</option>
+                <option value="CtoK">Celsius → Kelvin</option>
+                <option value="KtoC">Kelvin → Celsius</option>
+                <option value="FtoK">Fahrenheit → Kelvin</option>
+                <option value="KtoF">Kelvin → Fahrenheit</option>
+            </select>
+
+            <button onclick="convertTemp()">Convert</button>
+
+            <p id="result"></p>
+        </div>
+    `;
+}
+
+// 🔹 Start App (Validation)
+function startApp() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+
+    if (name === "" || email === "") {
+        document.getElementById("error").innerText = "⚠ Fill all details";
+        return;
     }
 
-    .container {
-        background: white;
-        padding: 30px;
-        border-radius: 15px;
-        text-align: center;
-        width: 320px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
+    showConverter(name);
+}
 
-    input, select, button {
-        width: 100%;
-        margin: 10px 0;
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-    }
-
-    button {
-        background: #0072ff;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background: #00c6ff;
-    }
-
-    #result {
-        font-size: 18px;
-        font-weight: bold;
-    }
-`;
-document.head.appendChild(style);
-
+// 🔹 Temperature Logic
 function convertTemp() {
     let temp = parseFloat(document.getElementById("temp").value);
     let type = document.getElementById("type").value;
@@ -121,6 +108,58 @@ function convertTemp() {
             break;
     }
 }
+
+// 🔹 Styling (Same creative UI)
+const style = document.createElement("style");
+style.innerHTML = `
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+    }
+
+    .container {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        width: 320px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    input, select, button {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background: #0072ff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #00c6ff;
+    }
+
+    #result, #error {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+`;
+document.head.appendChild(style);
+
+// 🔹 Start with login screen
+showLogin();
+
 </script>
 
 </body>
